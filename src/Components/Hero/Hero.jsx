@@ -1,0 +1,97 @@
+import React from 'react'
+import Image1 from '../../assets/hero/food.png'
+import Image2 from '../../assets/hero/healthy.png'
+import Image3 from '../../assets/hero/Salmon.png'
+import Slider from 'react-slick';
+
+const ImageList = [
+  {
+    id: 1,
+    img: Image1,
+    title: "Lifestyle Change at the Palm of your Hands",
+    description: "What can you eat? Which ingredients should always be on your...",
+
+  },
+  {
+    id: 2,
+    img: Image2,
+    title: "Check your Lifesytle with Weight Cheque",
+    description: "You have everything you need to make a lasting lifestyle change.",
+
+  },
+  {
+    id: 3,
+    img: Image3,
+    title:"Ultimate Diets & Recipes",
+    description: "We have delicious recipes, keto, mediterranean guides for eating out",
+  },
+]
+const Hero = () => {
+
+  var settings = {
+    dots: false,
+    arrows: false,
+    infinite: true,
+    speed: 800,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplayspeed: 4000,
+    cssEase: "ease-in-out",
+    pauseOnHover: false,
+    pauseOnFocus: true,
+
+  };
+  return (
+  <div className="relative overflow-hidden min-h-[550px]
+  sm:min-h-[650px] bg-gray-100 flex justify-center
+  items-center dark:bg-gray-950 dark:text-white 
+  duration-200">
+
+    <div className="h-[700px] w-[700px] bg-primary/40
+    absolute -top-1/2 right-o rounded-3xt rotate-45"></div>
+<div className="container pb-8 sm:pb-0">
+  <Slider {...settings}>
+      {ImageList.map((data) => (
+       <div> 
+          <div className="grid grid-cols-1 sm:grid-cols-2">
+            <div className="flex flex-col justify-center
+        gap-4 pt-12 sm:pt-0 text-center sm:text-left
+        order-2 sm:order-1 relative z-10">
+           <h1 className="text-5xl sm:text-6xl
+           lg:text-7xl font-bold">
+            {data.title}
+            </h1>
+           <p className="text-sm">
+            {data.description}
+           </p>
+           <div>
+            <button
+            className="bg-gradient-to-r
+            from-primary to-secondary hover:scale-105
+            duration-200 text-white py-2 px-4
+            rounded-full"
+            >Purchase Today
+            </button>
+           </div>
+        </div>
+        <div className="order-1 sm:order-2">
+          <div className="relative z-10">
+            <img src=
+              {data.img}
+              alt=""
+              className="w-[300px] h-[300px] sm:h-
+            [450px] sm:w-[450px] sm:scale-125
+            lg:scale-120 object-contain mx-auto"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    ))}
+  </Slider>
+ </div>
+</div>
+  );
+}
+
+export default Hero
