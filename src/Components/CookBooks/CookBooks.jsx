@@ -28,6 +28,7 @@ const CookBooks = () => {
   return (
     <div>
       <div className="container">
+        {/* header section */}
       <div className="text-left mb-24">
             <p data-aos="fade-up" className="text-sm text-primary">Instant Download</p>
             <h1 data-aos="fade-up" className="text-3xl font-bold">Our Cookbooks</h1>
@@ -36,14 +37,17 @@ const CookBooks = () => {
             so you can treat without the cheat
             </p>
         </div>
+        {/* body section */}
         <div className="grid grid-cols-1 sm:grid-cols-2
         md:grid-cols-3 gap-20 md:gap-5 place-items-center">
           {CookBooksData.map((data) => (
-            <div className="rounded-2xt bg-white
+            <div
+            className="rounded-2xl bg-white
              dark:bg-gray-800 hover:bg-black/80
               dark:hover:bg-primary hover:text-white
               relative shadow-xl duration-300 group max-w-[300px]"
             >
+              {/*Image section */}
               <div className="h-[100px]">
                 <img src={data.img} alt=""
                   
@@ -53,7 +57,9 @@ const CookBooks = () => {
                   drop-shadow-md" 
                 />
               </div>
+              {/*details section*/}
               <div className="p-4 text-center">
+                {/*star rating*/}
                 <div className="w-full flex items-center
                 justify-center gap-1">
                   <FaStar className="text-yellow-500"/>
