@@ -1,6 +1,6 @@
 import React from 'react';
 import footerLogo from '../../assets/CHEQUE.png';
-import Banner from '../../assets/footer-pattern.jpg';
+import Banner from '../../assets/footer-pattern.png';
 import {
     FaFacebook,
     FaInstagram,
@@ -50,7 +50,9 @@ const Footer = () => {
                     <img src= {footerLogo} alt=""
                     className="max-w-[50px]"/>
                     Weight Cheque</h1>
-                <p>You have everything you need to make a lasting lifestyle change.</p>
+                <p>Our mission is to build healthy nutrition habits by providing practical and affordable weight loss meal plans that suite your lifestyle and budget.
+                  
+                </p>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3
             col-span-2 md:pl-10">

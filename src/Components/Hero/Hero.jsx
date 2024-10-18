@@ -47,13 +47,16 @@ const Hero = () => {
   items-center dark:bg-gray-950 dark:text-white 
   duration-200">
 
-    <div className="h-[700px] w-[700px] bg-primary/40
-    absolute -top-1/2 right-o rounded-3xt rotate-45"></div>
+{/* hero section */}
+
 <div className="container pb-8 sm:pb-0">
   <Slider {...settings}>
       {ImageList.map((data) => (
        <div> 
           <div className="grid grid-cols-1 sm:grid-cols-2">
+
+            {/* text content section */}
+
             <div className="flex flex-col justify-center
         gap-4 pt-12 sm:pt-0 text-center sm:text-left
         order-2 sm:order-1 relative z-10">
@@ -74,6 +77,7 @@ const Hero = () => {
             </button>
            </div>
         </div>
+        {/* Image section */}
         <div className="order-1 sm:order-2">
           <div className="relative z-10">
             <img src=
