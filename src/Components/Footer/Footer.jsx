@@ -43,6 +43,7 @@ const Footer = () => {
     className="text-white mb-20">
       <div className="container">
         <div data-aos="zoom-in" className="grid md:grid-cols-3 pb-44 pt-5">
+          {/* company details */}
             <div className="py-8 px-4">
                 <h1
                 className=" sm:text-3xl text-xl font-bold sm:text-left
@@ -54,6 +55,8 @@ const Footer = () => {
                   
                 </p>
             </div>
+            {/* Footer Links */}
+
             <div className="grid grid-cols-2 sm:grid-cols-3
             col-span-2 md:pl-10">
                 <div>
@@ -77,6 +80,7 @@ const Footer = () => {
                         </ul>
                     </div>
                 </div>
+                {/* Social Links */}
 
                 <div>
                     <div className="flex items-center gap-3 mt-6">

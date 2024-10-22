@@ -48,19 +48,23 @@ const Recipes = () => {
   return (
     <div className="mt-14 mb-12">
       <div className="container">
+
         {/* header section */}
+
         <div className="text-center mb-10 max-w-[600px]
         mx-auto">
             <p data-aos="fade-up" className="text-sm text-primary">Top Recipes for you</p>
             <h1 data-aos="fade-up" className="text-3xl font-bold">Recipes</h1>
            <p data-aos="fade-up" className="text-xs text-gray-400">Start your healthy journey Here! We have delicious recipes, guides for eating out</p>
         </div>
+
         {/* Body section */}
 
         <div>
           <div className="grid grid-cols-1 sm:grid-cols-3
           md:grid-cols-4 lg:grid-cols-5 place-items-center
           gap-5">
+            
             {/*Card Section */}
 
             {RecipesData.map((data) => (
