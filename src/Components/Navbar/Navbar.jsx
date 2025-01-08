@@ -3,7 +3,7 @@ import Logo from "../../assets/CHEQUE.png";
 import { IoMdSearch } from "react-icons/io";
 import { data } from 'autoprefixer';
 import DarkMode from './DarkMode'
-
+import { Link } from 'react-router-dom';
 const Menu = [
   {
     id: 1,
@@ -23,7 +23,7 @@ const Menu = [
   {
     id: 4,
     name: "About Us",
-    link: "/#",
+    link: "/about",
   },
 ]
 const Navbar = () => {
@@ -34,7 +34,7 @@ relative z-40">
 
   {/* upper Navbar */}
 
-  <div className="bg-transparent py-2"> 
+  <div className="bg-gradient-to-r from-primary to-secondary py-2"> 
     <div className="container flex
     justify-between items-center">
     <div>

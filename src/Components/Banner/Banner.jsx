@@ -29,7 +29,7 @@ const Banner = () => {
                 Looking for the best recipes in one convenient location? Get the NEW eBook Bundle.
                 </p>
                 <div className="flex flex-col gap-4">
-                    <div data-aos="fade-up" className="flex items-center gap-4">
+                    <div className="flex items-center gap-4">
                         <GrSecure className="text-4xl h-12 w-12
                         shadow-sm p-4 rounded-full bg-violet-100
                         dark:bg-violet-400"
@@ -37,14 +37,14 @@ const Banner = () => {
                         />
                         <p>Quality Guides</p>
                     </div>
-                    <div data-aos="fade-up" className="flex items-center gap-4">
+                    <div className="flex items-center gap-4">
                         <IoFastFood className="text-4xl h-12
                         w-12 shadow-sm p-4 rounded-full
                         bg-orange-100 dark:bg-orange-400"/>
                         <p>Fast Dinners</p>
                         
                     </div>
-                    <div data-aos="fade-up" className="flex items-center gap-4">
+                    <div className="flex items-center gap-4">
                 <GiFoodTruck className="text-4xl h-12 w-12 shadow-sm p-4 rounded-full bg-green-100 dark:bg-green-400" />
                 <p>Easy Payment method</p>
               </div>

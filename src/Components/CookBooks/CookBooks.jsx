@@ -30,9 +30,9 @@ const CookBooks = () => {
       <div className="container">
         {/* header section */}
       <div className="text-left mb-24">
-            <p data-aos="fade-up" className="text-sm text-primary">Instant Download</p>
-            <h1 data-aos="fade-up" className="text-3xl font-bold">Our Cookbooks</h1>
-            <p data-aos="fade-up" className="text-xs text-gray-400">Cutting out sugar is not easy. 
+            <p className="text-sm text-primary">Instant Download</p>
+            <h1 className="text-3xl font-bold">Our Cookbooks</h1>
+            <p className="text-xs text-gray-400">Cutting out sugar is not easy. 
             Those carb cravings can make a person crazy, which is why our guides can help.
             so you can treat without the cheat
             </p>

@@ -1,6 +1,6 @@
 import React from 'react';
 import footerLogo from '../../assets/CHEQUE.png';
-import Banner from '../../assets/footer-pattern.png';
+import Banner from '../../assets/footer-pattern.jpg';
 import {
     FaFacebook,
     FaInstagram,
@@ -42,7 +42,7 @@ const Footer = () => {
     <div style={BannerImg}
     className="text-white mb-20">
       <div className="container">
-        <div data-aos="zoom-in" className="grid md:grid-cols-3 pb-44 pt-5">
+        <div className="grid md:grid-cols-3 pb-44 pt-5">
           {/* company details */}
             <div className="py-8 px-4">
                 <h1

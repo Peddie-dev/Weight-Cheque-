@@ -3,6 +3,7 @@ import Image1 from '../../assets/hero/food.png'
 import Image2 from '../../assets/hero/healthy.png'
 import Image3 from '../../assets/hero/Salmon.png'
 import Slider from 'react-slick';
+import { Link } from 'react-router-dom';
 
 const ImageList = [
   {
@@ -68,6 +69,7 @@ const Hero = () => {
             {data.description}
            </p>
            <div>
+            <Link to="/payment">
             <button
             className="bg-gradient-to-r
             from-primary to-secondary hover:scale-105
@@ -75,6 +77,7 @@ const Hero = () => {
             rounded-full"
             >Purchase Today
             </button>
+            </Link>
            </div>
         </div>
         {/* Image section */}
