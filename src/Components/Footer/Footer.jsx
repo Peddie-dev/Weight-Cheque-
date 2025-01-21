@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from 'react-router-dom';
 import footerLogo from "../../assets/CHEQUE.png";
 import Banner from "../../assets/footer-pattern.jpg";
 import {
@@ -9,6 +8,7 @@ import {
   FaLocationArrow,
   FaMobileAlt,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const BannerImg = {
   backgroundImage: `url(${Banner})`,
@@ -101,7 +101,7 @@ const Footer = () => {
               <div className="mt-6">
                 <div className="flex items-center gap-3">
                   <FaLocationArrow />
-                  <p>Nairobi, Kenya</p>
+                  <p>Los Angeles, CA</p>
                 </div>
                 <div className="flex items-center gap-3 mt-3">
                   <FaMobileAlt />
