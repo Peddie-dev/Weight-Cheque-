@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import PaymentPage from "./Pages/PaymentPage";
 import AboutUs from "./Pages/AboutUs";
+import RecipesPage from "./Pages/Recipes";
+import ArticlesPage from "./Pages/Articles";
 
 const App = () => {
   React.useEffect(() => {
@@ -32,6 +34,13 @@ const App = () => {
 
           {/* Route for Payment Page */}
           <Route path="/payment" element={<PaymentPage />} />
+
+          {/*Route for Recipes Page*/}
+          <Route path="/recipes" element={<RecipesPage />} />
+
+          {/*Route for Articles Page*/}
+          <Route path="/articles" element={<ArticlesPage />} />
+
         </Routes>
         <Footer />
       </div>
