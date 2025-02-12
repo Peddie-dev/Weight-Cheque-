@@ -52,8 +52,8 @@ const Recipes = () => {
 
         {/* Header Section */}
         <div className="text-center mb-10 max-w-[600px] mx-auto">
-          <p className="text-sm text-primary">Top Recipes for You</p>
-          <h1 className="text-3xl font-bold">Recipes</h1>
+          <p className="text-sm text-primary">Top Articles for You</p>
+          <h1 className="text-3xl font-bold">Articles</h1>
           <p className="text-xs text-gray-400">Start your healthy journey here! We have delicious recipes, guides for eating out</p>
         </div>
 
@@ -86,10 +86,10 @@ const Recipes = () => {
 
           </div>
 
-          {/* More Recipes Button */}
+          {/* More Articles Button */}
           <div className="flex justify-center">
             <button className="text-center mt-10 cursor-pointer bg-primary text-white py-2 px-8 rounded-md shadow-md hover:bg-secondary transition-colors">
-              More Recipes
+              More Articles
             </button>
           </div>
         </div>

@@ -58,13 +58,7 @@ const Hero = () => {
                   <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-4">
                     {data.description}
                   </p>
-                  <div>
-                    <Link to="/payment">
-                      <button className="bg-gradient-to-r from-primary to-secondary hover:scale-105 duration-200 text-white py-3 px-6 rounded-full shadow-md transform transition-transform">
-                        Purchase Today
-                      </button>
-                    </Link>
-                  </div>
+                
                 </div>
 
                 {/* Image section */}

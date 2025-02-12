@@ -43,7 +43,7 @@ const Banner = () => {
             <div className="mt-6">
               <Link to="/payment">
                 <button className="bg-gradient-to-r from-primary to-secondary text-white py-3 px-8 rounded-full text-lg hover:scale-105 transform duration-200">
-                  Purchase Today
+                  Buy Now
                 </button>
               </Link>
             </div>
