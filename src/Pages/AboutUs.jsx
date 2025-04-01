@@ -44,10 +44,10 @@ const AboutUs = () => {
             <p className="text-gray-600">
               Have questions? We'd love to hear from you! Reach out to us at{" "}
               <a
-                href="mailto:info@yourcompany.com"
+                href="mailto:edpromerchants254@gmail.com"
                 className="text-blue-600 hover:underline"
               >
-                info@weightcheque.com
+                edpromerchants254@gmail.com
               </a>{" "}
               or call us at{" "}
               <a href="tel:+254713616289" className="text-blue-600 hover:underline">
