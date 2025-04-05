@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Orange active dot for slick-carousel */
+.slick-dots li.slick-active div {
+    @apply !bg-primary;
+  }
+  
