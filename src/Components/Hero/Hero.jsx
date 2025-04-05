@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import Image1 from '../../assets/hero/food.png';
 import Image2 from '../../assets/hero/healthy.png';
 import Image3 from '../../assets/hero/Salmon.png';
 import Slider from 'react-slick';
-import { Link } from 'react-router-dom';
+import { ChevronLeft, ChevronRight } from 'lucide-react'; // Optional: or use any icon
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const ImageList = [
   {
@@ -26,31 +28,61 @@ const ImageList = [
   },
 ];
 
+// Custom arrow components
+const NextArrow = ({ onClick }) => (
+  <div
+    onClick={onClick}
+    className="absolute right-4 top-1/2 transform -translate-y-1/2 z-20 cursor-pointer bg-white dark:bg-gray-800 text-gray-800 dark:text-white p-2 rounded-full shadow hover:scale-110 transition"
+  >
+    <ChevronRight size={24} />
+  </div>
+);
+
+const PrevArrow = ({ onClick }) => (
+  <div
+    onClick={onClick}
+    className="absolute left-4 top-1/2 transform -translate-y-1/2 z-20 cursor-pointer bg-white dark:bg-gray-800 text-gray-800 dark:text-white p-2 rounded-full shadow hover:scale-110 transition"
+  >
+    <ChevronLeft size={24} />
+  </div>
+);
+
 const Hero = () => {
+  const sliderRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(true);
+
   const settings = {
     dots: false,
-    arrows: false,
+    arrows: true,
     infinite: true,
     speed: 800,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: isPlaying,
     autoplaySpeed: 4000,
     cssEase: "ease-in-out",
     pauseOnHover: false,
     pauseOnFocus: true,
+    nextArrow: <NextArrow onClick={() => handleInteraction()} />,
+    prevArrow: <PrevArrow onClick={() => handleInteraction()} />,
+  };
+
+  // Pause autoplay when user interacts
+  const handleInteraction = () => {
+    if (isPlaying) {
+      sliderRef.current.slickPause();
+      setIsPlaying(false);
+    }
   };
 
   return (
     <div className="relative overflow-hidden min-h-[550px] sm:min-h-[650px] bg-gray-100 flex justify-center items-center dark:bg-gray-950 dark:text-white duration-200">
 
-      {/* Hero section */}
       <div className="container pb-8 sm:pb-0">
-        <Slider {...settings}>
+        <Slider ref={sliderRef} {...settings}>
           {ImageList.map((data) => (
             <div key={data.id}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                
-                {/* Text content section */}
+                {/* Text section */}
                 <div className="flex flex-col justify-center gap-4 pt-12 sm:pt-0 text-center sm:text-left order-2 sm:order-1 relative z-10">
                   <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight text-gray-800 dark:text-white">
                     {data.title}
@@ -58,9 +90,7 @@ const Hero = () => {
                   <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-4">
                     {data.description}
                   </p>
-                
                 </div>
-
                 {/* Image section */}
                 <div className="order-1 sm:order-2 flex justify-center sm:justify-end">
                   <div className="relative z-10">
@@ -71,7 +101,6 @@ const Hero = () => {
                     />
                   </div>
                 </div>
-                
               </div>
             </div>
           ))}
@@ -82,3 +111,4 @@ const Hero = () => {
 };
 
 export default Hero;
+
