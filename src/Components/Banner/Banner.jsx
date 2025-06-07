@@ -45,9 +45,9 @@ const Banner = () => {
             {/* Purchase Today Button */}
             <div className="mt-6">
               <Link to="/payment">
-                <button className="bg-gradient-to-r from-orange-500 to-orange-400 hover:from-orange-600 hover:to-orange-500 text-white py-3 px-8 rounded-full text-lg hover:scale-105 transform duration-200">
+                <button className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-white py-3 px-8 rounded-full text-lg hover:scale-105 transform duration-200">
                   Buy Now
-                </button>
+                  </button>
               </Link>
             </div>
           </div>
