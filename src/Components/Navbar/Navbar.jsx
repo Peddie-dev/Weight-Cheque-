@@ -335,11 +335,11 @@ const Navbar = () => {
             {Menu.map((item) => (
               <li key={item.id}>
                 <Link
-                  to={item.link}
-                  className="hover:underline hover:text-bg-gradient-to-r from-primary to-secondary"
+                to={item.link}
+                className="text-gray-800 hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent hover:underline transition duration-200"
                 >
                   {item.name}
-                </Link>
+                  </Link>
               </li>
             ))}
           </ul>
