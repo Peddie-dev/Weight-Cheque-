@@ -1,45 +1,70 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-const ArticlesPage = () => {
+
+const Articles = () => {
   const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:1337/api/blogs?pagination[limit]=9&populate=featuredImage")
-      .then((response) => response.json())
+    fetch("http://localhost:1337/api/articles?populate=*")
+      .then((res) => res.json())
       .then((data) => {
-        // Strapi v4 returns posts under data.data
-        setArticles(data.data);
+        setArticles(data?.data || []);
+        setLoading(false);
       })
-      .catch((error) => console.error("Error fetching articles:", error));
+      .catch((err) => {
+        console.error("Failed to fetch articles:", err);
+        setLoading(false);
+      });
   }, []);
+
+  if (loading) return <p className="p-6">Loading articles...</p>;
+  if (!articles.length) return <p className="p-6">No articles found.</p>;
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Latest Articles</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {articles.map(({ id, attributes }) => {
-          const { title, excerpt, featuredImage } = attributes;
+      <h1 className="text-4xl font-bold mb-8 text-center">Latest Articles</h1>
+      <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        {articles.map((article) => {
+          const {
+            id,
+            title,
+            description,
+            slug,
+            cover
+          } = article;
 
-          // Build full image URL or fallback placeholder
-          const imageUrl = featuredImage?.data
-            ? `http://localhost:1337${featuredImage.data.attributes.url}`
-            : "https://via.placeholder.com/600x400?text=No+Image";
+          const imageUrl = cover?.url
+            ? `http://localhost:1337${cover.url}`
+            : "https://via.placeholder.com/400x200?text=No+Image";
 
           return (
-            <div key={id} className="bg-white shadow-md rounded-lg p-4">
+            <div
+              key={id}
+              className="bg-white rounded-xl shadow-md overflow-hidden transition-transform duration-300 hover:scale-105"
+            >
               <img
                 src={imageUrl}
                 alt={title}
-                className="w-full h-40 object-cover rounded-md"
+                className="w-full h-48 object-cover"
               />
-              <h2 className="text-xl font-semibold mt-4">{title}</h2>
-              <p className="text-gray-600 text-sm mt-2">{excerpt}</p>
-              <a
-                href={`/articles/${id}`}
-                className="text-primary font-bold mt-4 inline-block"
-              >
+              <div className="p-5">
+                <h2 className="text-xl font-semibold text-gray-800">{title}</h2>
+                <p className="text-gray-600 text-sm mt-2 line-clamp-3">
+                  {description}
+                </p>
+                <a
+                  href={`/articles/${slug}`}
+                  className="text-indigo-600 font-semibold mt-4 inline-block"
+                >
+               <Link
+               to={`/articles/${slug}`}
+               className="text-indigo-600 font-semibold mt-4 inline-block">
                 Read More →
-              </a>
+                </Link>
+                </a>
+              </div>
             </div>
           );
         })}
@@ -48,4 +73,4 @@ const ArticlesPage = () => {
   );
 };
 
-export default ArticlesPage;
+export default Articles;
