@@ -11,6 +11,9 @@ import RecipesPage from "./Pages/Recipes";
 import ArticlesPage from "./Pages/Articles";
 import CartPage from "./Pages/CartPage";
 import { CartProvider } from "./Context/CartContext"; // Import CartProvider
+import ArticlePage from "./Pages/ArticlePage";
+import DigitalLibrary from "./Pages/DigitalLibrary";
+
 
 const App = () => {
   React.useEffect(() => {
@@ -43,7 +46,10 @@ const App = () => {
           {/*Route for Articles Page*/}
           <Route path="/articles" element={<ArticlesPage />} />
 
-          
+           <Route path="/articles/:slug" element={<ArticlePage />} /> 
+
+           <Route path="/digital-library" element={<DigitalLibrary />} />
+           
           {/*Route for Cart Page*/}
           <Route path="/Cart" element={<CartPage />} />
 
