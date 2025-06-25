@@ -101,7 +101,6 @@ const Navbar = () => {
               <img src={Logo} alt="Logo" className="w-10" />
               Weight Cheque
             </a>
-
             <div className="flex items-center gap-4">
               {/* Search Input */}
               <div className="relative group hidden sm:block">
