@@ -95,12 +95,12 @@ const Navbar = () => {
     <>
       {/* Top Navbar */}
       <div className="shadow-md bg-white dark:bg-gray-900 dark:text-white duration-200 relative z-40 fixed w-full top-0 left-0">
-        <div className="bg-gradient-to-r from-primary to-secondary py-2">
-          <div className="container flex justify-between items-center">
-            <a href="#" className="font-sans text-2xl sm:text-3xl flex gap-2">
+        <div className="py-2">
+          <div className="container flex justify-between items-center px-4 sm:px-8">
+            <Link to="/" className="font-sans text-2xl sm:text-3xl flex gap-2">
               <img src={Logo} alt="Logo" className="w-10" />
               Weight Cheque
-            </a>
+            </Link>
             <div className="flex items-center gap-4">
               {/* Search Input */}
               <div className="relative group hidden sm:block">
@@ -217,7 +217,6 @@ const Navbar = () => {
                           <button
                             onClick={() => setShowAuthForm(false)}
                             className="absolute top-3 right-3 text-2xl font-bold text-gray-600 hover:text-red-500 dark:text-gray-300"
-                            aria-label="Close Authentication Form"
                           >
                             &times;
                           </button>
@@ -250,58 +249,28 @@ const Navbar = () => {
                               <>
                                 <div>
                                   <label className="block mb-1 font-medium">First Name</label>
-                                  <input
-                                    name="firstName"
-                                    type="text"
-                                    required
-                                    className={inputField}
-                                  />
+                                  <input name="firstName" type="text" required className={inputField} />
                                 </div>
                                 <div>
                                   <label className="block mb-1 font-medium">Last Name</label>
-                                  <input
-                                    name="lastName"
-                                    type="text"
-                                    required
-                                    className={inputField}
-                                  />
+                                  <input name="lastName" type="text" required className={inputField} />
                                 </div>
                               </>
                             )}
                             <div>
                               <label className="block mb-1 font-medium">Email</label>
-                              <input
-                                name="email"
-                                type="email"
-                                required
-                                className={inputField}
-                              />
+                              <input name="email" type="email" required className={inputField} />
                             </div>
                             <div>
                               <label className="block mb-1 font-medium">Password</label>
-                              <input
-                                name="password"
-                                type="password"
-                                required
-                                className={inputField}
-                                minLength={6}
-                              />
+                              <input name="password" type="password" required className={inputField} minLength={6} />
                             </div>
                             {authTab === "Create Account" && (
                               <div>
-                                <label className="block mb-1 font-medium">
-                                  Confirm Password
-                                </label>
-                                <input
-                                  name="confirmPassword"
-                                  type="password"
-                                  required
-                                  className={inputField}
-                                  minLength={6}
-                                />
+                                <label className="block mb-1 font-medium">Confirm Password</label>
+                                <input name="confirmPassword" type="password" required className={inputField} minLength={6} />
                               </div>
                             )}
-
                             <button
                               type="submit"
                               className="w-full bg-primary text-white py-2 rounded hover:bg-primary-dark transition"
@@ -317,34 +286,30 @@ const Navbar = () => {
               </div>
 
               {/* Mobile menu toggle */}
-              <button
-                className="block sm:hidden text-2xl ml-2"
-                onClick={toggleMenu}
-                aria-label="Toggle Menu"
-              >
+              <button className="block sm:hidden text-2xl ml-2" onClick={toggleMenu}>
                 <IoMdMenu />
               </button>
             </div>
           </div>
         </div>
 
-        {/* ====== LOWER NAVBAR (always visible on large screens) ====== */}
-        <nav className="hidden sm:flex justify-center bg-white dark:bg-gray-900 py-2">
-          <ul className="flex gap-10 text-black dark:text-white font-semibold">
+        {/* LOWER NAVBAR (Desktop) - Gradient Orange */}
+        <nav className="hidden sm:flex justify-center bg-gradient-to-r from-primary to-secondary py-2 text-white">
+          <ul className="flex gap-10 font-semibold">
             {Menu.map((item) => (
               <li key={item.id}>
                 <Link
-                to={item.link}
-                className="text-gray-800 hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent hover:underline transition duration-200"
+                  to={item.link}
+                  className="hover:underline hover:text-black transition duration-200"
                 >
                   {item.name}
-                  </Link>
+                </Link>
               </li>
             ))}
           </ul>
         </nav>
 
-        {/* ====== MOBILE LOWER MENU (visible only when toggled) ====== */}
+        {/* LOWER NAVBAR (Mobile Dropdown) - Gradient */}
         {isMenuOpen && (
           <nav className="sm:hidden bg-gradient-to-r from-primary to-secondary py-4 px-6">
             <ul className="flex flex-col gap-4 text-white font-semibold">
@@ -363,15 +328,11 @@ const Navbar = () => {
           </nav>
         )}
       </div>
-
-     
     </>
   );
 };
 
 export default Navbar;
-
-
 
 
 
