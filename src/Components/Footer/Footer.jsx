@@ -1,5 +1,5 @@
 import React from "react";
-import footerLogo from "../../assets/CHEQUE.png";
+import footerLogo from "../../assets/CHEQUE 2.png";
 import {
   FaFacebook,
   FaInstagram,
@@ -34,7 +34,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-3 py-8">
           {/* Company Details */}
           <div className="py-8 px-4">
-            <img src={footerLogo} alt="Footer Logo" className="max-w-[50px]" />
+            <img src={footerLogo} alt="Footer Logo" className="w-[100px] sm:w-[120px] md:w-[140px] h-auto" />
             <p className="mt-4 text-gray-300">
               Our mission is to build healthy nutrition habits by providing
               practical and affordable weight loss meal plans that suit your

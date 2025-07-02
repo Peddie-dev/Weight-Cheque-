@@ -83,18 +83,18 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative overflow-hidden min-h-[420px] sm:min-h-[500px] bg-gray-100 dark:bg-gray-950 dark:text-white duration-200">
+    <div className="relative overflow-hidden pt-[6rem] min-h-[550px] sm:min-h-[650px] bg-gray-100 dark:bg-gray-950 dark:text-white duration-200">
       <div className="container px-4 sm:px-8 md:px-16 lg:px-20 pb-6 sm:pb-0 mx-auto">
         <Slider ref={sliderRef} {...settings}>
           {ImageList.map((data) => (
             <div key={data.id}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 items-center py-8 sm:py-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 items-center py-10 sm:py-16">
                 {/* Text Section */}
-                <div className="text-center sm:text-left space-y-4 order-2 sm:order-1">
-                  <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight text-gray-900 dark:text-white">
+                <div className="text-center sm:text-left space-y-5 order-2 sm:order-1">
+                  <h1 className="text-4xl sm:text-6xl font-bold leading-tight text-gray-900 dark:text-white">
                     {data.title}
                   </h1>
-                  <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">
+                  <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300">
                     {data.description}
                   </p>
                   <button className="mt-4 inline-block bg-gradient-to-r from-primary to-secondary text-white px-6 py-3 rounded-xl text-sm sm:text-base font-semibold shadow hover:opacity-90 transition">
@@ -107,7 +107,7 @@ const Hero = () => {
                   <img
                     src={data.img}
                     alt="hero"
-                    className="w-[280px] sm:w-[420px] lg:w-[500px] h-auto object-contain"
+                    className="w-[300px] sm:w-[460px] lg:w-[520px] h-auto object-contain"
                   />
                 </div>
               </div>

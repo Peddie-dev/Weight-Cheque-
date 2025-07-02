@@ -5,10 +5,13 @@ const Articles = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:1337/api/articles")
+    fetch("http://localhost:1337/api/articles?sort=createdAt:desc")
       .then((res) => res.json())
       .then((data) => {
-        setArticles(data?.data || []);
+        const validArticles = (data?.data || []).filter(
+          (item) => item?.title && item?.slug
+        );
+        setArticles(validArticles.slice(0, 3));
         setLoading(false);
       })
       .catch((err) => {
@@ -40,28 +43,50 @@ const Articles = () => {
       <h1 className="text-4xl font-extrabold mb-10 text-center text-gray-800">
         Explore Our Latest Articles
       </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
         {articles.map((article) => {
-          const { id, title, slug, description } = article;
+          const { id, title, slug, description, cover } = article;
+
+          const imageUrl =
+            cover?.formats?.medium?.url || cover?.url
+              ? `http://localhost:1337${cover.formats?.medium?.url || cover.url}`
+              : null;
 
           return (
             <div
               key={id}
-              className="bg-white shadow-lg rounded-2xl p-6 hover:shadow-2xl transition duration-300 ease-in-out"
+              className="rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition duration-300 bg-white"
             >
-              <h2 className="text-xl font-bold text-gray-800 mb-3">{title}</h2>
-              <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                {description}
-              </p>
-              <a
-                href={`/articles/${slug}`}
-                className="text-indigo-600 hover:text-indigo-800 font-medium transition"
-              >
-                Read More →
-              </a>
+              {imageUrl && (
+                <img
+                  src={imageUrl}
+                  alt={title}
+                  className="w-full h-48 object-cover"
+                />
+              )}
+              <div className="p-5">
+                <h2 className="text-xl font-bold text-gray-900 mb-2">{title}</h2>
+                <p className="text-gray-600 text-sm mb-4 line-clamp-3">{description}</p>
+                <a
+                  href={`/articles/${slug}`}
+                  className="text-sm font-medium text-primary hover:text-secondary transition"
+                >
+                  Read More →
+                </a>
+              </div>
             </div>
           );
         })}
+      </div>
+
+      <div className="text-center mt-12">
+        <a
+          href="/articles"
+          className="inline-block px-8 py-3 text-white font-semibold rounded-full bg-gradient-to-r from-primary to-secondary shadow-md hover:opacity-90 transition"
+        >
+          View More Articles
+        </a>
       </div>
     </div>
   );

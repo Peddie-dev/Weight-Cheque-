@@ -93,14 +93,18 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Top Navbar */}
-      <div className="shadow-md bg-white dark:bg-gray-900 dark:text-white duration-200 relative z-40 fixed w-full top-0 left-0">
-        <div className="py-2">
-          <div className="container flex justify-between items-center px-4 sm:px-8">
-            <Link to="/" className="font-sans text-2xl sm:text-3xl flex gap-2">
-              <img src={Logo} alt="Logo" className="w-10" />
-              Weight Cheque
+      {/* Sticky Top Navbar */}
+      <div className="fixed top-0 left-0 w-full z-50 bg-white dark:bg-gray-900 shadow-sm dark:text-white">
+        <div className="h-14 sm:h-16">
+          <div className="container h-full flex justify-between items-center px-4 sm:px-8">
+            <Link to="/" className="h-full flex items-center">
+              <img
+                src={Logo}
+                alt="Logo"
+                className="w-[100px] sm:w-[120px] md:w-[140px] h-auto"
+              />
             </Link>
+
             <div className="flex items-center gap-4">
               {/* Search Input */}
               <div className="relative group hidden sm:block">
@@ -135,10 +139,9 @@ const Navbar = () => {
                 )}
               </div>
 
-              {/* Dark Mode Toggle */}
               <DarkMode />
 
-              {/* Cart Icon */}
+              {/* Cart */}
               <div className="relative">
                 <Link to="/Cart">
                   <IoMdCart className="text-2xl" />
@@ -150,7 +153,7 @@ const Navbar = () => {
                 </Link>
               </div>
 
-              {/* User Profile Section */}
+              {/* User */}
               <div className="relative" ref={dropdownRef}>
                 {user ? (
                   <>
@@ -164,7 +167,6 @@ const Navbar = () => {
                       <span className="font-semibold">Hi, {user.name}</span>
                       <IoMdPerson className="text-2xl" />
                     </button>
-
                     {showUserDropdown && (
                       <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 z-50">
                         <Link
@@ -207,7 +209,7 @@ const Navbar = () => {
                       <IoMdPerson />
                     </button>
 
-                    {/* Auth Modal */}
+                    {/* Auth Form */}
                     {showAuthForm && (
                       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
                         <div
@@ -233,9 +235,9 @@ const Navbar = () => {
                               Login
                             </button>
                             <button
-                              onClick={() => setAuthTab("Create Account")}
+                              onClick={() => setAuthTab("register")}
                               className={`flex-1 py-2 font-semibold ${
-                                authTab === "Create Account"
+                                authTab === "register"
                                   ? "border-b-2 border-primary text-primary"
                                   : "text-gray-500"
                               }`}
@@ -245,7 +247,7 @@ const Navbar = () => {
                           </div>
 
                           <form onSubmit={handleAuthSubmit} className="space-y-5">
-                            {authTab === "Create Account" && (
+                            {authTab === "register" && (
                               <>
                                 <div>
                                   <label className="block mb-1 font-medium">First Name</label>
@@ -265,7 +267,7 @@ const Navbar = () => {
                               <label className="block mb-1 font-medium">Password</label>
                               <input name="password" type="password" required className={inputField} minLength={6} />
                             </div>
-                            {authTab === "Create Account" && (
+                            {authTab === "register" && (
                               <div>
                                 <label className="block mb-1 font-medium">Confirm Password</label>
                                 <input name="confirmPassword" type="password" required className={inputField} minLength={6} />
@@ -285,7 +287,7 @@ const Navbar = () => {
                 )}
               </div>
 
-              {/* Mobile menu toggle */}
+              {/* Mobile Toggle */}
               <button className="block sm:hidden text-2xl ml-2" onClick={toggleMenu}>
                 <IoMdMenu />
               </button>
@@ -293,7 +295,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* LOWER NAVBAR (Desktop) - Gradient Orange */}
+        {/* Lower Nav - Desktop */}
         <nav className="hidden sm:flex justify-center bg-gradient-to-r from-primary to-secondary py-2 text-white">
           <ul className="flex gap-10 font-semibold">
             {Menu.map((item) => (
@@ -309,7 +311,7 @@ const Navbar = () => {
           </ul>
         </nav>
 
-        {/* LOWER NAVBAR (Mobile Dropdown) - Gradient */}
+        {/* Lower Nav - Mobile Dropdown */}
         {isMenuOpen && (
           <nav className="sm:hidden bg-gradient-to-r from-primary to-secondary py-4 px-6">
             <ul className="flex flex-col gap-4 text-white font-semibold">
@@ -328,6 +330,9 @@ const Navbar = () => {
           </nav>
         )}
       </div>
+
+      {/* Push content down so it doesn't get hidden under navbar */}
+      <div className="pt-[4.5rem] sm:pt-[5.5rem]" />
     </>
   );
 };
