@@ -5,7 +5,7 @@ const Articles = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:1337/api/articles?sort=createdAt:desc")
+    fetch("http://localhost:1337/api/articles?sort=createdAt:desc&populate=cover")
       .then((res) => res.json())
       .then((data) => {
         const validArticles = (data?.data || []).filter(
@@ -23,8 +23,10 @@ const Articles = () => {
   if (loading) {
     return (
       <div className="container mx-auto p-6">
-        <h1 className="text-3xl font-bold mb-6 text-gray-800">Latest Articles</h1>
-        <p className="text-gray-500">Loading articles...</p>
+        <h1 className="text-3xl font-bold mb-6 text-gray-800 dark:text-gray-100">
+          Latest Articles
+        </h1>
+        <p className="text-gray-500 dark:text-gray-400">Loading articles...</p>
       </div>
     );
   }
@@ -32,15 +34,17 @@ const Articles = () => {
   if (!articles.length) {
     return (
       <div className="container mx-auto p-6">
-        <h1 className="text-3xl font-bold mb-6 text-gray-800">Latest Articles</h1>
-        <p className="text-gray-500">No articles found.</p>
+        <h1 className="text-3xl font-bold mb-6 text-gray-800 dark:text-gray-100">
+          Latest Articles
+        </h1>
+        <p className="text-gray-500 dark:text-gray-400">No articles found.</p>
       </div>
     );
   }
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-4xl font-extrabold mb-10 text-center text-gray-800">
+      <h1 className="text-4xl font-extrabold mb-10 text-center text-gray-800 dark:text-white">
         Explore Our Latest Articles
       </h1>
 
@@ -56,7 +60,7 @@ const Articles = () => {
           return (
             <div
               key={id}
-              className="rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition duration-300 bg-white"
+              className="rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition duration-300 bg-white dark:bg-gray-800"
             >
               {imageUrl && (
                 <img
@@ -66,11 +70,15 @@ const Articles = () => {
                 />
               )}
               <div className="p-5">
-                <h2 className="text-xl font-bold text-gray-900 mb-2">{title}</h2>
-                <p className="text-gray-600 text-sm mb-4 line-clamp-3">{description}</p>
+                <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+                  {title}
+                </h2>
+                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3">
+                  {description}
+                </p>
                 <a
                   href={`/articles/${slug}`}
-                  className="text-sm font-medium text-primary hover:text-secondary transition"
+                  className="text-sm font-medium bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent transition hover:underline"
                 >
                   Read More →
                 </a>
