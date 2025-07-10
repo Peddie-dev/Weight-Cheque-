@@ -15,7 +15,7 @@ const FooterLinks = [
   },
   {
     title: "Recipes",
-    link: "/#recipes",
+    link: "/recipes",
   },
   {
     title: "About Us",
@@ -23,7 +23,7 @@ const FooterLinks = [
   },
   {
     title: "Articles",
-    link: "/#articles",
+    link: "/articles",
   },
 ];
 
