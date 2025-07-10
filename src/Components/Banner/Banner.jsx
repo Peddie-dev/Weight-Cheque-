@@ -1,8 +1,8 @@
 import React from 'react';
 import BannerImg from "../../assets/Banner/Banner.png";
 import { GrSecure } from 'react-icons/gr';
-import { IoFastFood } from 'react-icons/io5';
-import { GiFoodTruck } from 'react-icons/gi';
+import { MdLibraryBooks } from 'react-icons/md';
+import { FiMonitor } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 const Banner = () => {
@@ -14,40 +14,41 @@ const Banner = () => {
           <div data-aos="zoom-in">
             <img 
               src={BannerImg} 
-              alt="Banner"
+              alt="Digital Library Banner"
               className="max-w-[400px] h-[350px] w-full mx-auto drop-shadow-lg object-cover rounded-lg"
             />
           </div>
 
-          {/* Text Details Section */}
+          {/* Text Section */}
           <div className="flex flex-col justify-center gap-6 sm:pt-0">
             <h1 className="text-3xl sm:text-4xl font-bold text-black dark:text-white">
-              Get our Ebook Bundle at 38% off
+              Subscribe Now for Full eBook Access
             </h1>
             <p className="text-sm text-gray-700 dark:text-gray-300 tracking-wide leading-5">
-              Looking for the best recipes in one convenient location? Get the NEW eBook Bundle.
+              Unlock access to all our premium eBooks in one digital library. Cook smarter and healthier — all from a single subscription.
             </p>
+
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-4">
+                <MdLibraryBooks className="text-4xl h-12 w-12 shadow-sm p-4 rounded-full bg-gray-100 dark:bg-gray-800 text-black dark:text-white" />
+                <p className="text-gray-700 dark:text-gray-300">All Our Premium eBooks in One Place</p>
+              </div>
+              <div className="flex items-center gap-4">
+                <FiMonitor className="text-4xl h-12 w-12 shadow-sm p-4 rounded-full bg-gray-100 dark:bg-gray-800 text-black dark:text-white" />
+                <p className="text-gray-700 dark:text-gray-300">Access on Any Device</p>
+              </div>
+              <div className="flex items-center gap-4">
                 <GrSecure className="text-4xl h-12 w-12 shadow-sm p-4 rounded-full bg-gray-100 dark:bg-gray-800 text-black dark:text-white" />
-                <p className="text-gray-700 dark:text-gray-300">Quality Guides</p>
-              </div>
-              <div className="flex items-center gap-4">
-                <IoFastFood className="text-4xl h-12 w-12 shadow-sm p-4 rounded-full bg-gray-100 dark:bg-gray-800 text-black dark:text-white" />
-                <p className="text-gray-700 dark:text-gray-300">Fast Dinners</p>
-              </div>
-              <div className="flex items-center gap-4">
-                <GiFoodTruck className="text-4xl h-12 w-12 shadow-sm p-4 rounded-full bg-gray-100 dark:bg-gray-800 text-black dark:text-white" />
-                <p className="text-gray-700 dark:text-gray-300">Easy Payment method</p>
+                <p className="text-gray-700 dark:text-gray-300">Secure & Private Platform</p>
               </div>
             </div>
-            
-            {/* Purchase Today Button */}
+
+            {/* CTA Button with original gradient */}
             <div className="mt-6">
-              <Link to="/payment">
+              <Link to="/subscribe">
                 <button className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-white py-3 px-8 rounded-full text-lg hover:scale-105 transform duration-200">
-                  Buy Now
-                  </button>
+                  Subscribe Now
+                </button>
               </Link>
             </div>
           </div>
