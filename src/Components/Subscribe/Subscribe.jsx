@@ -75,7 +75,7 @@ const Subscribe = () => {
               type="submit"
               className="bg-orange-600 text-white px-6 py-2 rounded-md hover:bg-orange-700 transition duration-200"
             >
-              Subscribe
+              Submit
             </button>
           </form>
           {status && <p className="text-sm text-white mt-2">{status}</p>}

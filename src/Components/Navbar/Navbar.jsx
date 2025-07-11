@@ -12,8 +12,7 @@ import Logo from "../../assets/CHEQUE.png";
 import {
   auth,
   googleProvider,
-  analytics
-} from "../../firebase"; // ✅ adjust path if needed
+} from "../../firebase"; // Adjust path if needed
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -21,6 +20,8 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
+
+import { useCart } from "../../Context/CartContext"; // ✅ import cart context
 
 const Menu = [
   { id: 1, name: "Home", link: "/" },
@@ -37,7 +38,6 @@ const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
-  const [cartCount, setCartCount] = useState(0);
   const [user, setUser] = useState(() => auth.currentUser);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const [showAuthForm, setShowAuthForm] = useState(false);
@@ -46,18 +46,14 @@ const Navbar = () => {
   const dropdownRef = useRef(null);
   const authFormRef = useRef(null);
 
+  const { cart, toggleSidebar } = useCart(); // ✅ cart + toggleSidebar
+
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setShowUserDropdown(false);
       }
-      if (
-        authFormRef.current &&
-        !authFormRef.current.contains(event.target)
-      ) {
+      if (authFormRef.current && !authFormRef.current.contains(event.target)) {
         setShowAuthForm(false);
       }
     };
@@ -73,12 +69,10 @@ const Navbar = () => {
     return () => unsubscribe();
   }, []);
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
   const handleSearch = (e) => {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
-    setShowResults(query.trim() ? true : false);
+    setShowResults(!!query.trim());
 
     const mockResults = [
       { id: 1, title: "Keto Recipes", link: "/recipes/keto" },
@@ -157,7 +151,7 @@ const Navbar = () => {
                   className="w-[200px] group-hover:w-[300px] transition-all duration-300 rounded-full border border-gray-800 px-2 py-1 focus:outline-none focus:border-primary dark:border-gray-500 dark:bg-gray-800"
                 />
                 <button
-                  onClick={() => setShowResults(searchQuery.trim() ? true : false)}
+                  onClick={() => setShowResults(!!searchQuery.trim())}
                   className="absolute top-1/2 -translate-y-1/2 right-3"
                 >
                   <IoMdSearch className="text-gray-500 group-hover:text-primary" />
@@ -180,19 +174,17 @@ const Navbar = () => {
 
               <DarkMode />
 
-              {/* Cart */}
-              <div className="relative">
-                <Link to="/cart">
-                  <IoMdCart className="text-2xl" />
-                  {cartCount > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2">
-                      {cartCount}
-                    </span>
-                  )}
-                </Link>
+              {/* Cart Icon */}
+              <div className="relative cursor-pointer" onClick={toggleSidebar}>
+                <IoMdCart className="text-2xl" />
+                {cart.length > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2">
+                    {cart.reduce((sum, item) => sum + item.quantity, 0)}
+                  </span>
+                )}
               </div>
 
-              {/* User */}
+              {/* User Auth */}
               <div className="relative" ref={dropdownRef}>
                 {user ? (
                   <>
@@ -211,8 +203,6 @@ const Navbar = () => {
                     {showUserDropdown && (
                       <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 z-50">
                         <Link to="/digital-library" className="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700">Digital Library</Link>
-                        <Link to="/manage-account" className="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700">Manage My Account</Link>
-                        <Link to="/payment-methods" className="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700">Payment Methods</Link>
                         <button onClick={handleSignOut} className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-700">Sign Out</button>
                       </div>
                     )}
@@ -281,7 +271,6 @@ const Navbar = () => {
                             </button>
                           </form>
 
-                          {/* Google Sign-In */}
                           <div className="mt-4">
                             <button
                               type="button"
@@ -300,7 +289,7 @@ const Navbar = () => {
               </div>
 
               {/* Mobile Menu Toggle */}
-              <button className="block sm:hidden text-2xl ml-2" onClick={toggleMenu}>
+              <button className="block sm:hidden text-2xl ml-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                 <IoMdMenu />
               </button>
             </div>
@@ -336,7 +325,7 @@ const Navbar = () => {
         )}
       </div>
 
-      {/* Push content down below fixed nav */}
+      {/* Push content below fixed navbar */}
       <div className="pt-[4.5rem] sm:pt-[5.5rem]" />
     </>
   );

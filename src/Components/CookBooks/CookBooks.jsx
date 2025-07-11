@@ -1,32 +1,38 @@
-import React from 'react'
+import React from 'react';
 import Img1 from "../../assets/Cookbook/Img1.png";
 import Img2 from "../../assets/Cookbook/Img2.png";
 import Img3 from "../../assets/Cookbook/Img3.png";
 import { FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { useCart } from '../../Context/CartContext'; // ✅ Import useCart
 
 const CookBooksData = [
   {
     id: 1,
     img: Img1,
     title: "Mediterranean Guide Book",
+    price: 15.99, // ✅ Add price for each item
     description: "The guidebook will come complete with all the resources you need to be successful on the Mediterranean diet, including a 30-day meal plan, shopping list, FAQ section and recipes that the entire family will love.",
   },
   {
     id: 2,
     img: Img2,
     title: "Keto Made Easy",
-    description: "Everything can be made keto! No more missing out on your favorite dishes. Keto Made Easy shows you how to re-create non-keto recipes in easy, cost-effective, and delicious ways.", 
+    price: 12.99,
+    description: "Everything can be made keto! No more missing out on your favorite dishes. Keto Made Easy shows you how to re-create non-keto recipes in easy, cost-effective, and delicious ways.",
   },
   {
     id: 3,
     img: Img3,
     title: "DASH Made Easy",
+    price: 10.99,
     description: "Get the best we have to offer when it comes to the DASH Diet for your weight loss.",
   },
 ];
 
 const CookBooks = () => {
+  const { addToCart } = useCart(); // ✅ Get addToCart function from context
+
   return (
     <div>
       <div className="container">
@@ -60,7 +66,6 @@ const CookBooks = () => {
 
               {/* Details section */}
               <div className="p-4 text-center">
-                {/* Star rating */}
                 <div className="w-full flex items-center justify-center gap-1">
                   <FaStar className="text-yellow-500" />
                   <FaStar className="text-yellow-500" />
@@ -74,6 +79,11 @@ const CookBooks = () => {
                 </p>
 
                 <button
+                  onClick={() => addToCart({
+                    id: data.id,
+                    name: data.title,
+                    price: data.price,
+                  })}
                   className="bg-primary hover:scale-105 duration-300 text-white py-1 px-4
                     rounded-full mt-4 group-hover:bg-white group-hover:text-primary"
                 >
@@ -87,13 +97,13 @@ const CookBooks = () => {
         {/* More Cookbooks Button */}
         <div className="flex justify-center mt-16">
           <Link to='/recipes'>
-          <button className="py-3 px-8 bg-gradient-to-r from-primary to-secondary 
-    text-white text-lg font-semibold rounded-full shadow-lg 
-    hover:shadow-xl transform hover:scale-105 transition-all duration-300">
-      More Cookbooks
-      </button>
-      </Link>
-      </div>
+            <button className="py-3 px-8 bg-gradient-to-r from-primary to-secondary 
+              text-white text-lg font-semibold rounded-full shadow-lg 
+              hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+              More Cookbooks
+            </button>
+          </Link>
+        </div>
 
       </div>
     </div>
