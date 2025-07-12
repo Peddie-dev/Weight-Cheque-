@@ -1,15 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useCart } from "../../Context/CartContext";
 import axios from "axios";
-import pesapalLogo from "../../assets/payments/pesapal.png";
+import { useLocation } from "react-router-dom";
 import paystackLogo from "../../assets/payments/paystack.png";
 
 const PaymentComponent = () => {
   const { getTotal } = useCart();
+  const location = useLocation();
+
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [subscribe, setSubscribe] = useState(false);
-  const [gateway, setGateway] = useState("pesapal"); // default
+  const [planName, setPlanName] = useState("");
+  const [amount, setAmount] = useState(0);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const selectedPlan = params.get("plan");
+
+    if (selectedPlan === "monthly") {
+      setAmount(8);
+      setPlanName("Monthly Subscription");
+    } else if (selectedPlan === "yearly") {
+      setAmount(80);
+      setPlanName("Yearly Subscription");
+    } else {
+      setAmount(parseFloat(getTotal()));
+      setPlanName(""); // regular cart purchase
+    }
+  }, [location.search, getTotal]);
 
   const handlePayment = async () => {
     if (!email) {
@@ -19,11 +38,11 @@ const PaymentComponent = () => {
 
     setLoading(true);
     try {
-      const response = await axios.post("https://your-backend.com/api/payment/initiate", {
-        amount: getTotal(),
+      const response = await axios.post("http://localhost:5000/api/payment/initiate", {
+        amount,
         email,
         currency: "USD",
-        provider: gateway,
+        provider: "paystack",
       });
 
       if (response.data.payment_url) {
@@ -40,103 +59,86 @@ const PaymentComponent = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen px-4 py-10 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
-      <div className="w-full max-w-3xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-6 sm:p-10">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-6">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-orange-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 px-4 py-10">
+      <div className="w-full max-w-xl bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-10">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4 text-gray-800 dark:text-white">
           Secure Checkout
         </h2>
 
-        <p className="text-xl text-center mb-8 text-gray-700 dark:text-gray-300">
-          Total Amount:{" "}
-          <span className="font-bold text-gray-900 dark:text-white">${getTotal()}</span>
+        {planName && (
+          <p className="text-sm text-center mb-2 text-blue-600 dark:text-blue-400 font-medium">
+            {planName}
+          </p>
+        )}
+
+        <p className="text-lg text-center mb-6 text-gray-600 dark:text-gray-300">
+          You're about to pay{" "}
+          <span className="font-semibold text-gray-900 dark:text-white">${amount}</span>
         </p>
 
-        {/* Email input */}
         <div className="space-y-6">
-          <input
-            type="email"
-            placeholder="Enter your email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-5 py-4 text-lg rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 outline-none transition"
-          />
-
-          {/* Subscribe checkbox */}
-          <div className="flex items-center space-x-3">
+          {/* Email Input */}
+          <div>
+            <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+              Email Address
+            </label>
             <input
-              type="checkbox"
-              id="subscribe"
-              checked={subscribe}
-              onChange={() => setSubscribe(!subscribe)}
-              className="w-5 h-5 text-orange-500 bg-gray-100 dark:bg-gray-700 border-gray-300 rounded focus:ring-orange-500"
+              id="email"
+              type="email"
+              placeholder="e.g. yourname@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-3 text-base rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 outline-none transition"
             />
-            <label htmlFor="subscribe" className="text-gray-700 dark:text-gray-300 text-lg">
+          </div>
+
+          {/* Subscribe checkbox with brand gradient */}
+          <div className="flex items-center space-x-3">
+            <div className="relative">
+              <input
+                type="checkbox"
+                id="subscribe"
+                checked={subscribe}
+                onChange={() => setSubscribe(!subscribe)}
+                className={`appearance-none w-5 h-5 border border-gray-300 dark:border-gray-700 rounded-md
+                  ${subscribe ? "bg-gradient-to-br from-[#FFA41B] to-orange-500" : "bg-white dark:bg-gray-800"}
+                  focus:outline-none cursor-pointer transition duration-200`}
+              />
+              {subscribe && (
+                <svg
+                  className="absolute top-0 left-0 w-5 h-5 text-white pointer-events-none"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M5 13l4 4L19 7" />
+                </svg>
+              )}
+            </div>
+            <label htmlFor="subscribe" className="text-sm sm:text-base text-gray-700 dark:text-gray-300 cursor-pointer">
               Email me with news and offers
             </label>
           </div>
 
-          {/* Payment Method Radio Buttons */}
-          <div className="mt-6">
-            <label className="block text-lg font-semibold mb-2">Choose Payment Method:</label>
-            <div className="flex flex-col sm:flex-row gap-4">
-              {/* Pesapal Option */}
-              <label
-                htmlFor="pesapal"
-                className={`flex items-center justify-between gap-4 px-5 py-4 w-full sm:w-1/2 border rounded-lg cursor-pointer transition ${
-                  gateway === "pesapal"
-                    ? "border-orange-500 ring-2 ring-orange-300 dark:ring-orange-600"
-                    : "border-gray-300 dark:border-gray-700"
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    id="pesapal"
-                    name="paymentGateway"
-                    value="pesapal"
-                    checked={gateway === "pesapal"}
-                    onChange={() => setGateway("pesapal")}
-                    className="w-5 h-5 text-orange-500 focus:ring-orange-500"
-                  />
-                  <img src={pesapalLogo} alt="Pesapal" className="h-6 w-6" />
-                  <span className="text-base font-medium">Pesapal</span>
-                </div>
-              </label>
-
-              {/* Paystack Option */}
-              <label
-                htmlFor="paystack"
-                className={`flex items-center justify-between gap-4 px-5 py-4 w-full sm:w-1/2 border rounded-lg cursor-pointer transition ${
-                  gateway === "paystack"
-                    ? "border-green-600 ring-2 ring-green-300 dark:ring-green-700"
-                    : "border-gray-300 dark:border-gray-700"
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    id="paystack"
-                    name="paymentGateway"
-                    value="paystack"
-                    checked={gateway === "paystack"}
-                    onChange={() => setGateway("paystack")}
-                    className="w-5 h-5 text-green-600 focus:ring-green-600"
-                  />
-                  <img src={paystackLogo} alt="Paystack" className="h-6 w-6" />
-                  <span className="text-base font-medium">Paystack</span>
-                </div>
-              </label>
-            </div>
+          {/* Paystack Info Box */}
+          <div className="flex items-center gap-3 border rounded-lg px-4 py-3 bg-gray-50 dark:bg-gray-800 shadow-sm">
+            <img src={paystackLogo} alt="Paystack" className="h-6 w-6" />
+            <span className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
+              Payment will be processed securely via Paystack
+            </span>
           </div>
 
           {/* Pay Button */}
-          <button
-            onClick={handlePayment}
-            disabled={loading}
-            className="w-full mt-8 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-400 text-white text-xl font-bold py-5 rounded-lg transition disabled:opacity-50"
-          >
-            {loading ? "Processing..." : `Pay with ${gateway === "pesapal" ? "Pesapal" : "Paystack"}`}
-          </button>
+          <div className="flex justify-center">
+            <button
+              onClick={handlePayment}
+              disabled={loading}
+              className="mt-4 px-10 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base font-semibold rounded-md transition disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? "Processing..." : "Pay"}
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -144,5 +146,3 @@ const PaymentComponent = () => {
 };
 
 export default PaymentComponent;
-
-

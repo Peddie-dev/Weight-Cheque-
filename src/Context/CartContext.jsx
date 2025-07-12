@@ -11,12 +11,15 @@ export const CartProvider = ({ children }) => {
 
   const [isCartOpen, setIsCartOpen] = useState(false);
 
+  // ✅ New state for subscription pricing
+  const [customAmount, setCustomAmount] = useState(null);
+
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  const toggleSidebar = () => setIsCartOpen((prev) => !prev); // ✅ add this
-  const closeSidebar = () => setIsCartOpen(false); // ✅ optional but useful
+  const toggleSidebar = () => setIsCartOpen((prev) => !prev);
+  const closeSidebar = () => setIsCartOpen(false);
 
   const addToCart = (item) => {
     setCart((prevCart) => {
@@ -31,7 +34,7 @@ export const CartProvider = ({ children }) => {
         return [...prevCart, { ...item, quantity: 1 }];
       }
     });
-    setIsCartOpen(true); // open sidebar
+    setIsCartOpen(true);
   };
 
   const removeFromCart = (id) => {
@@ -50,9 +53,13 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = () => {
     setCart([]);
+    setCustomAmount(null); // ✅ Also clear custom amount on cart clear
   };
 
+  // ✅ Modified getTotal
   const getTotal = () => {
+    if (customAmount !== null) return Number(customAmount).toFixed(2);
+
     return cart
       .reduce((total, item) => total + item.price * item.quantity, 0)
       .toFixed(2);
@@ -69,8 +76,10 @@ export const CartProvider = ({ children }) => {
         getTotal,
         isCartOpen,
         setIsCartOpen,
-        toggleSidebar, // ✅ provide toggleSidebar
-        closeSidebar,  // ✅ optional
+        toggleSidebar,
+        closeSidebar,
+        customAmount,       // ✅ make accessible
+        setCustomAmount,    // ✅ make accessible
       }}
     >
       {children}
